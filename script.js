@@ -47,7 +47,21 @@ function draw() {
   for (let i = 0; i < steps + 1; i++) {
     let x = (width * i) / steps;
     let y =
-      height / 2 - (random() * random() * random() * height) / 8 - height / 50;
+      height / 2 - (random() * random() * random() * height) / 8 - height / 5;
+    vertex(x, y);
+  }
+  vertex(width, height / 2);
+  endShape(CLOSE);
+
+  // An example of drawing an irregular polygon
+  fill(hillColor);
+  beginShape();
+  vertex(0, height / 2);
+  const steps1 = 15;
+  for (let i = 0; i < steps + 1; i++) {
+    let x = (width * i) / steps;
+    let y =
+      height / 2 - (random() * random() * random() * height) / 8 - height / 10;
     vertex(x, y);
   }
   vertex(width, height / 2);
@@ -141,7 +155,6 @@ function draw() {
       circle(x+25,30,30,30);
       circle(x+50,40,30,30);
     }
-
     if(random>=8){
       circle(x+600,40,30,30);
       circle(x+600,50,30,30);
@@ -160,7 +173,5 @@ function draw() {
       circle(x+325,30,30,30);
       circle(x+350,40,30,30);
     }
-
   }
 }
-
