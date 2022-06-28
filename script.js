@@ -1,12 +1,13 @@
 /* exported setup, draw */
 let seed = 12345;
 
-const grassColor = "#e1ac4a";
+const grassColor = "#AFE1AF";
 const skyColor = "#cdd8e6";
-const hillColor = "#1e273f";
+const hillColor = "#e1ac4a";
 const treeColor = "#3d1803";
 const leaveColor = "#233610";
 const sunColor = [254,254,254,80]; // with opacity
+const cloudColor = "";
 
 function preload() {
     // runs before setup 
@@ -57,11 +58,13 @@ function draw() {
     drawLtree();
   }
 
+  drawCloud(width * random(),10*random());
+
   // An example of recursively drawing an L-tree 
   function drawLtree() {
     let x = width * random();
-    let y = height/2 + height/8 * random();
-    let s = width/200 + (y - height/2)/2;
+    let y = 0.8* height + height/8 * random();
+    let s = width/200 + 70;
     let jitter = (mouseX - width/2) / width * 2 * Math.PI / 180;
     drawLtreeBranch(x, y, s, (-90 * Math.PI / 180) + jitter, 0, 5); // this angle points north (0 is east)
   }  
@@ -119,6 +122,44 @@ function draw() {
     let y2 = y1 + vy;
     line(x1, y1, x2, y2);
     circle(x2, y2, 3);
+
+  }
+
+  // combining circle together to get the cloud
+  // from Ben Huang
+  function drawCloud(x,random){
+    console.log(random);
+    // first cloud
+    fill(cloudColor);
+
+    if(random>=5){
+      circle(x,40,30,30);
+      circle(x,50,30,30);
+      circle(x,30,30,30);
+      circle(x,40,30,30);
+      circle(x+25,50,30,30);
+      circle(x+25,30,30,30);
+      circle(x+50,40,30,30);
+    }
+
+    if(random>=8){
+      circle(x+600,40,30,30);
+      circle(x+600,50,30,30);
+      circle(x+600,30,30,30);
+      circle(x+600,40,30,30);
+      circle(x+625,50,30,30);
+      circle(x+625,30,30,30);
+      circle(x+650,40,30,30);
+    }
+    if(random>=3){
+      circle(x+300,40,30,30);
+      circle(x+300,50,30,30);
+      circle(x+300,30,30,30);
+      circle(x+300,40,30,30);
+      circle(x+325,50,30,30);
+      circle(x+325,30,30,30);
+      circle(x+350,40,30,30);
+    }
 
   }
 }
