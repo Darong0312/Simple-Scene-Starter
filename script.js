@@ -6,6 +6,7 @@ const skyColor = "#cdd8e6";
 const hillColor = "#e1ac4a";
 const treeColor = "#3d1803";
 const leaveColor = "#233610";
+const boatColor = "#C19A6C";
 const sunColor = [254,254,254,80]; // with opacity
 const cloudColor = "";
 
@@ -15,7 +16,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 400);
+  createCanvas(1200, 800);
   createButton("reroll").mousePressed(() => seed++);
 }
 
@@ -36,10 +37,9 @@ function draw() {
   ellipse(mouseX,0,100,100);
   ellipse(mouseX,0,200,200);
 
-  fill(grassColor);
+  fill(68,238,255);
   rect(0, height / 2, width, height / 2);
 
-  // An example of drawing an irregular polygon
   fill(hillColor);
   beginShape();
   vertex(0, height / 2);
@@ -53,91 +53,22 @@ function draw() {
   vertex(width, height / 2);
   endShape(CLOSE);
 
-  // An example of drawing an irregular polygon
-  fill(hillColor);
+  fill(grassColor);
   beginShape();
   vertex(0, height / 2);
-  const steps1 = 15;
-  for (let i = 0; i < steps + 1; i++) {
-    let x = (width * i) / steps;
+  const steps2 = 10;
+  for (let i = 0; i < steps2 + 1; i++) {
+    let x = (width * i) / steps2;
     let y =
-      height / 2 - (random() * random() * random() * height) / 8 - height / 10;
+      height / 2 - (random() * random() * random() * height) / 3 - height / 10;
     vertex(x, y);
   }
   vertex(width, height / 2);
   endShape(CLOSE);
 
-  const trees = 5*random();
-  for (let i = 0; i < trees; i++) {
-    drawLtree();
-  }
-
   drawCloud(width * random(),10*random());
+  drawboat();
 
-  // An example of recursively drawing an L-tree 
-  function drawLtree() {
-    let x = width * random();
-    let y = 0.8* height + height/8 * random();
-    let s = width/200 + 70;
-    let jitter = (mouseX - width/2) / width * 2 * Math.PI / 180;
-    drawLtreeBranch(x, y, s, (-90 * Math.PI / 180) + jitter, 0, 5); // this angle points north (0 is east)
-  }  
-
-  function drawLtreeBranch(x, y, s, angle, max_limit, branch_weight) { // s is length of a segment
-    stroke(treeColor);
-    strokeWeight(branch_weight);
-    let v = p5.Vector.fromAngle(angle, s);
-    let vx = v.x;
-    let vy = v.y; 
-    let x1 = x;
-    let y1 = y; 
-    let x2 = x1 + vx;
-    let y2 = y1 + vy;
-    line(x1, y1, x2, y2);
-
-    let new_s = s * 0.7;
-    let new_max = max_limit + random();
-    let new_branch_weight = branch_weight - 1;
-    new_branch_weight = max(new_branch_weight, 1);
-
-    if (max_limit < 3) {
-        if (random() < 1/3) {
-            drawLtreeBranch(x2, y2, new_s, (-35 * Math.PI / 180) + angle, new_max, new_branch_weight);
-        } else if (random() > 1/3) {
-            drawLtreeBranch(x2, y2, new_s, (35 * Math.PI / 180) + angle, new_max, new_branch_weight);
-        } else {
-            drawLtreeBranch(x2, y2, new_s, (-35 * Math.PI / 180) + angle, new_max, new_branch_weight);
-            drawLtreeBranch(x2, y2, new_s, (35 * Math.PI / 180) + angle, new_max, new_branch_weight);
-        }
-        drawLtreeBranch(x2, y2, new_s, angle, new_max, new_branch_weight);
-    }
-    else {
-        if (random() < 1/3) {
-            drawLeave(x2, y2, new_s, (-35 * Math.PI / 180) + angle);
-        } else if (random() > 1/3) {
-            drawLeave(x2, y2, new_s, (35 * Math.PI / 180) + angle);
-        } else {
-            drawLeave(x2, y2, new_s, (-35 * Math.PI / 180) + angle);
-            drawLeave(x2, y2, new_s, (35 * Math.PI / 180) + angle);
-        }
-    }
-
-  }
-
-  function drawLeave(x, y, s, angle) {
-    fill(leaveColor);
-    noStroke();
-    let v = p5.Vector.fromAngle(angle, s);
-    let vx = v.x;
-    let vy = v.y; 
-    let x1 = x;
-    let y1 = y; 
-    let x2 = x1 + vx;
-    let y2 = y1 + vy;
-    line(x1, y1, x2, y2);
-    circle(x2, y2, 3);
-
-  }
 
   // combining circle together to get the cloud
   // from Ben Huang
@@ -174,4 +105,26 @@ function draw() {
       circle(x+350,40,30,30);
     }
   }
+}
+
+function drawboat(){
+
+  stroke(boatColor);
+  fill(boatColor);
+  beginShape()
+  vertex(mouseX-125,490);
+  vertex(mouseX-110,510);
+  vertex(mouseX-15,510);
+  vertex(mouseX,490);
+  vertex(mouseX-125,490);
+  endShape();
+
+  fill('red');
+  stroke('red');
+  beginShape();
+  vertex(mouseX-60,490);
+  vertex(mouseX-60,415);
+  vertex(mouseX-20,485);
+  vertex(mouseX-60,485);
+  endShape();
 }
