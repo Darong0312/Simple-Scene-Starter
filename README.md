@@ -1,7 +1,7 @@
 # Simple Scene Generation
 
 Image link:
-https://www.123rf.com/photo_17962429_mount-kilimanjaro-partly-in-clouds-view-from-savanna-landscape-in-amboseli-kenya-africa.html
+https://picstatio.com/download/1920x1080/50743f/Nevado-Sajama-mountains-lake-nature.jpg
 
 # The shape
 Mountain is form by two different kind of irregular polygon.
